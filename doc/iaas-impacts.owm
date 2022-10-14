@@ -1,0 +1,69 @@
+title Cloud impacts IAAS
+
+anchor Customer [0.97, 0.28]
+
+component ImpactReport [0.90, 0.19] label [-20, -6]
+
+
+component enterprise-workplace [0.81, 0.08] label [-52, -45]
+component entpt-carbon-footprint [0.75, 0.04] label [46, -4]
+
+
+component transverse-services [0.64, 0.08] label [38, -16]
+
+component Customer-workload [0.70, 0.53] label [-43, -24]
+component Standard-redundancy [0.46, 0.44] label [-5, 13]
+component Customer-volatility [0.48, 0.31] label [-93, -18]
+
+component unallocated-over_provision [0.62, 0.26] label [-27, -24]
+
+
+component allocated-Infra [0.64, 0.53] label [-31, 6]
+
+component vcpu-quantity [0.58, 0.53] label [-90, 7]
+
+
+component BareMetal-Server [0.30, 0.51] label [38, -4]
+component Server-impacts [0.23, 0.57]
+component Server-parts [0.15, 0.54]
+component DC-Impacts [0.22, 0.38] label [5, -10]
+component Impact-database [0.06, 0.49] label [40, -4]
+component Mutualized-virtualization-Infra [0.59, 0.66] label [64, -25]
+
+
+
+
+
+
+
+
+Customer->ImpactReport
+//ImpactReport->high-level-view
+//ImpactReport->legalreport
+
+ImpactReport->enterprise-workplace
+enterprise-workplace->entpt-carbon-footprint
+ImpactReport->transverse-services
+ImpactReport->unallocated-over_provision
+ImpactReport->Customer-workload
+Customer-workload->allocated-Infra
+Customer-workload+'usage dynamics'>Customer-volatility
+Customer-workload->Mutualized-virtualization-Infra
+
+Mutualized-virtualization-Infra->BareMetal-Server
+
+allocated-Infra->vcpu-quantity
+vcpu-quantity+'cpu ratio'>BareMetal-Server
+BareMetal-Server->Server-impacts
+BareMetal-Server+'ratio of all servers'>DC-Impacts
+Server-impacts->Server-parts
+Server-parts->Impact-database
+
+unallocated-over_provision->Customer-volatility
+unallocated-over_provision->Standard-redundancy
+Customer-volatility+'ratio from volatility'>BareMetal-Server
+vcpu-quantity+'ratio of workload'>Standard-redundancy
+Standard-redundancy->BareMetal-Server
+
+style colour
+//style handwritten

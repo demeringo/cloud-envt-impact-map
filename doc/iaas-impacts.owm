@@ -9,13 +9,13 @@ component enterprise-workplace [0.81, 0.08] label [-52, -45]
 component entpt-carbon-footprint [0.75, 0.04] label [46, -4]
 
 
-component transverse-services [0.64, 0.08] label [38, -16]
+component transverse-services [0.64, 0.08] label [-7, -28]
 
 component Customer-workload [0.70, 0.53] label [-43, -24]
-component Standard-redundancy [0.46, 0.44] label [-5, 13]
-component Customer-volatility [0.48, 0.31] label [-93, -18]
+component Standard-redundancy [0.49, 0.41] label [-5, 13]
+component Customer-volatility [0.46, 0.19] label [-93, -18]
 
-component unallocated-over_provision [0.62, 0.26] label [-27, -24]
+component unallocated-over_provision [0.61, 0.18] label [-27, -24]
 
 
 component allocated-Infra [0.64, 0.53] label [-31, 6]
@@ -23,13 +23,13 @@ component allocated-Infra [0.64, 0.53] label [-31, 6]
 component vcpu-quantity [0.58, 0.53] label [-90, 7]
 
 
-component BareMetal-Server [0.30, 0.51] label [38, -4]
-component Server-impacts [0.23, 0.57]
-component Server-parts [0.15, 0.54]
-component Network [0.19, 0.35] 
-component DC-Impacts [0.19, 0.44] label [5, -10]
-component Impact-database [0.06, 0.49] label [40, -4]
-component Mutualized-virtualization-Infra [0.59, 0.66] label [64, -25]
+component BareMetal-Server [0.28, 0.21] label [38, -4]
+component Server-impacts [0.18, 0.48]
+component Parts-equipments [0.10, 0.49] label [38, 7]
+component Network-impacts [0.18, 0.59] label [5, -10]
+component DC-Impacts [0.18, 0.26] label [16, 5]
+component Impact-database [0.02, 0.49] label [40, -4]
+component Mutualized-virtualization-Infra [0.50, 0.62] label [64, -25]
 
 
 
@@ -50,6 +50,8 @@ ImpactReport->Customer-workload
 Customer-workload->allocated-Infra
 Customer-workload+'usage dynamics'>Customer-volatility
 Customer-workload->Mutualized-virtualization-Infra
+Customer-workload+'ratio of usage'>Network-impacts
+
 
 Mutualized-virtualization-Infra->BareMetal-Server
 
@@ -57,8 +59,8 @@ allocated-Infra->vcpu-quantity
 vcpu-quantity+'cpu ratio'>BareMetal-Server
 BareMetal-Server->Server-impacts
 BareMetal-Server+'ratio of all servers'>DC-Impacts
-Server-impacts->Server-parts
-Server-parts->Impact-database
+Server-impacts->Parts-equipments
+Parts-equipments->Impact-database
 
 unallocated-over_provision->Customer-volatility
 unallocated-over_provision->Standard-redundancy
@@ -66,6 +68,7 @@ Customer-volatility+'ratio from volatility'>BareMetal-Server
 vcpu-quantity+'factor of vcpu nbr'>Standard-redundancy
 Standard-redundancy->BareMetal-Server
 
+Network-impacts->Parts-equipments
+
 style colour
 //style handwritten
-BareMetal-Server->Network
